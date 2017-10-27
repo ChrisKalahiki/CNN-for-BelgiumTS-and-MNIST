@@ -1,0 +1,2 @@
+Upon first test, results are : {'accuracy': 0.96759999, 'global_step': 20000, 'loss': 0.10381936}
+This is for training and testing on MNIST dataset. 
