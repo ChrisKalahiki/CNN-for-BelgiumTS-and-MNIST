@@ -23,7 +23,7 @@ class FMan(object):
         for ipath in imagelist:
             if(os.path.exists(ipath.replace('.png','.bmp'))):
                 nf = open(ipath.replace('.png','.bmp'))
-                ver = int(nf.read)
+                ver = int(nf.read())
                 if ver != self.imageVersion:
                     os.remove(ipath.replace('.png','.bmp'))
                     toprocess.append(ipath)
