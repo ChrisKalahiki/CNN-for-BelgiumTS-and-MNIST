@@ -1,9 +1,3 @@
 
-*.ppm
-*.csv
-CNN/SavedNetworks/checkpoint
-*.data-00000-of-00001
-CNN/SavedNetworks/model.chkpt.meta
-CNN/SavedNetworks/model.chkpt.index
-CNN/BelgiumTS/Testing/Readme.txt
-CNN/BelgiumTS/Training/Readme.txt
+CNN/BelgiumTS/BelgiumTSC_Testing.zip
+CNN/BelgiumTS/BelgiumTSC_Training.zip
