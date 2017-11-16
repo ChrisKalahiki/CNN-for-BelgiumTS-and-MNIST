@@ -14,8 +14,8 @@
       <file leaf-file-name="cnn_RMR.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cnn_RMR.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="211" column="5" lean-forward="true" selection-start-line="211" selection-start-column="5" selection-end-line="211" selection-end-column="5" />
+            <state relative-caret-position="75">
+              <caret line="32" column="41" lean-forward="true" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
               <folding>
                 <element signature="e#694#732#0" expanded="true" />
               </folding>
@@ -250,8 +250,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cnn_RMR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="211" column="5" lean-forward="true" selection-start-line="211" selection-start-column="5" selection-end-line="211" selection-end-column="5" />
+        <state relative-caret-position="75">
+          <caret line="32" column="41" lean-forward="true" selection-start-line="32" selection-start-column="41" selection-end-line="32" selection-end-column="41" />
           <folding>
             <element signature="e#694#732#0" expanded="true" />
           </folding>
