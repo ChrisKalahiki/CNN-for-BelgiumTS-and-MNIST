@@ -23,6 +23,9 @@ import os
 import shutil
 import skimage.data
 import skimage.transform
+import random
+import matplotlib
+import matplotlib.pyplot as plt
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -175,6 +178,35 @@ def load_network():
 def clear_network():
     shutil.rmtree("/tmp/mnist_convnet_model")
 
+def display_test():
+    images, labels = getData('BelgiumTS/Testing')
+    # Pick 10 random images
+    sample_indexes = random.sample(range(len(images)), 10)
+    sample_images = [images[i] for i in sample_indexes]
+    sample_labels = [labels[i] for i in sample_indexes]
+
+    # Run the "predicted_labels" op.
+    session = tf.Session()
+    images_ph = tf.placeholder(tf.float32, [None, 64, 64, 3])
+    images_flat = tf.contrib.layers.flatten(images_ph)
+    logits = tf.contrib.layers.fully_connected(images_flat, 62, tf.nn.relu)
+    predicted_labels = tf.argmax(logits, 1)
+    predicted = session.run([predicted_labels], feed_dict={images_ph: sample_images})[0]
+    print(sample_labels)
+    print(predicted)
+
+    # Display the predictions and the ground truth visually.
+    fig = plt.figure(figsize=(10, 10))
+    for i in range(len(sample_images)):
+        truth = sample_labels[i]
+        prediction = predicted[i]
+        plt.subplot(5, 2, 1 + i)
+        plt.axis('off')
+        color = 'green' if truth == prediction else 'red'
+        plt.text(40, 10, "Truth:        {0}\nPrediction: {1}".format(truth, prediction),
+                 fontsize=12, color=color)
+        plt.imshow(sample_images[i])
+
 def main(unused_argv):
     # Create the Estimator
     classifier = load_network()
@@ -187,6 +219,7 @@ def main(unused_argv):
 
     #train_network(classifier, logging_hook)
     test_network(classifier)
+    #display_test()
 
 # This section will change to the new data set
 def oldmain(unused_argv):
