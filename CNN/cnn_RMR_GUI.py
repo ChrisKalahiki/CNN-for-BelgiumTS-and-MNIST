@@ -26,6 +26,8 @@ import skimage.transform
 import random
 import matplotlib
 import matplotlib.pyplot as plt
+from tkinter import *
+from tkinter import ttk
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -170,7 +172,7 @@ def test_network(classifier):
         num_epochs=1,
         shuffle=False)
     eval_results = classifier.evaluate(input_fn=eval_input_fn)
-    print(eval_results)
+    printData(eval_results)
 
 def load_network():
     return tf.estimator.Estimator(model_fn=cnn_model_fn, model_dir="/tmp/mnist_convnet_model")
@@ -207,8 +209,7 @@ def display_test():
                  fontsize=12, color=color)
         plt.imshow(sample_images[i])
 
-def nomain(unused_argv):
-    clear_network()
+def revNetwork():
     # Create the Estimator
     classifier = load_network()
 
@@ -222,8 +223,50 @@ def nomain(unused_argv):
     test_network(classifier)
     #display_test()
 
+def warmstartNetwork():
+    # Load training and eval data
+    #mnist = tf.contrib.learn.datasets.load_dataset("mnist")
+    #train_data = mnist.train.images  # Returns np.array
+    #train_labels = np.asarray(mnist.train.labels, dtype=np.int32)
+    #eval_data = mnist.test.images  # Returns np.array
+    #eval_labels = np.asarray(mnist.test.labels, dtype=np.int32)
+    train_data, train_labels = getData('BelgiumTS/Training')
+    eval_data, eval_labels = getData('BelgiumTS/Testing')
+
+
+    # Create the Estimator
+    mnist_classifier = load_network()
+
+    # Set up logging for predictions
+    # Log the values in the "Softmax" tensor with label "probabilities"
+    tensors_to_log = {"probabilities": "softmax_tensor"}
+    logging_hook = tf.train.LoggingTensorHook(
+        tensors=tensors_to_log, every_n_iter=50)
+
+    # Train the model
+    train_input_fn = tf.estimator.inputs.numpy_input_fn(
+        x={"x": train_data},
+        y=train_labels,
+        batch_size=10,
+        num_epochs=None,
+        shuffle=True)
+    mnist_classifier.train(
+        input_fn=train_input_fn,
+        steps=100,
+        hooks=[logging_hook])
+
+    # Evaluate the model and save results
+    eval_input_fn = tf.estimator.inputs.numpy_input_fn(
+        x={"x": eval_data},
+        y=eval_labels,
+        num_epochs=1,
+        shuffle=False)
+    eval_results = mnist_classifier.evaluate(input_fn=eval_input_fn)
+    saveData(eval_results)
+    printData(eval_results)
+
 # This section will change to the new data set
-def main(unused_argv):
+def coldstartNetwork():
     # Load training and eval data
     #mnist = tf.contrib.learn.datasets.load_dataset("mnist")
     #train_data = mnist.train.images  # Returns np.array
@@ -248,23 +291,102 @@ def main(unused_argv):
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": train_data},
         y=train_labels,
-        batch_size=100,
+        batch_size=1,
         num_epochs=None,
         shuffle=True)
     mnist_classifier.train(
         input_fn=train_input_fn,
-        steps=20000,
+        steps=1,
         hooks=[logging_hook])
 
-    # Evaluate the model and print results
+    # Evaluate the model and save results
     eval_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": eval_data},
         y=eval_labels,
         num_epochs=1,
         shuffle=False)
     eval_results = mnist_classifier.evaluate(input_fn=eval_input_fn)
-    print(eval_results)
+    saveData(eval_results)
+    printData(eval_results)
 
+def saveData(data):
+    my_file = 'results.txt'
+    deleteOldResults()
+    if os.path.isfile(my_file):
+        with open(my_file, 'r+') as f:
+            f.seek(0)
+            f.truncate()
+            f.write(str(data))
+            f.close()
+    else:
+        open(my_file, 'w+')
+        my_file.write(str(data))
+        my_file.close()
 
-if __name__ == "__main__":
-    tf.app.run()
+def deleteOldResults():
+    my_file = 'results.txt'
+    if os.path.isfile(my_file):
+        with open(my_file, 'r+') as f:
+            f.seek(0)
+            f.truncate()
+            f.seek(0)
+            f.write(" ")
+            f.close()
+    else:
+        f = open(my_file, 'w+')
+        my_file.write(" ")
+        my_file.close()
+
+def printData(data):
+    window = Tk()
+    window.title("Your Results Are")
+    window.configure(background="white")
+    txt = Label(window, text=(str(data)))
+    txt.configure(background="green", fg="white", font="bold")
+    txt.pack(padx=50, pady=50)
+
+def displayData():
+    my_file = 'results.txt'
+    if os.path.isfile(my_file):
+        with open(my_file, 'r') as f:
+           first_line = f.readline()
+           f.close()
+           printData(first_line)
+    else:
+        printData("No Data to Show")
+
+def mainWindow():
+
+    #root
+    root = Tk()
+    root.title("Neural Network RMR")
+    root.configure(background='black')
+    root.configure(background='white')
+
+    # button setup
+    frame = Frame(root)
+    frame.configure(background='white')
+    frame.pack(side=LEFT, padx=10, pady=10)
+    buttonWidth = 25
+
+    # buttons
+    buttonTrain = Button(frame, text="Train Nework", command=lambda: coldstartNetwork(), width=buttonWidth)
+    buttonDisplay = Button(frame, text="Display Most Recent Results", command=lambda: displayData(), width=buttonWidth)
+    buttonTest = Button(frame, text="Test Network", command=lambda: revNetwork(), width=buttonWidth)
+    buttonContinue = Button(frame, text="Continue Train Network", command=lambda: warmstartNetwork(), width=buttonWidth)
+
+    # button config
+    buttonTrain.configure(background="#33cc33", fg="black", font="Bold")
+    buttonDisplay.configure(background="#33cc33", fg="black", font="Bold")
+    buttonTest.configure(background="#33cc33", fg="black", font="Bold")
+    buttonContinue.configure(background="#33cc33", fg="black", font="Bold")
+
+    #button allign
+    buttonTrain.grid(row=0, column=0)
+    buttonDisplay.grid(row=1, column=0)
+    buttonTest.grid(row=1, column=1)
+    buttonContinue.grid(row=0, column=1)
+
+    root.mainloop()
+
+mainWindow()
