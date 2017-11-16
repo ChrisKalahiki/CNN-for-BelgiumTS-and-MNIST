@@ -252,7 +252,7 @@ def warmstartNetwork():
         shuffle=True)
     mnist_classifier.train(
         input_fn=train_input_fn,
-        steps=100,
+        steps=10000,
         hooks=[logging_hook])
 
     # Evaluate the model and save results
@@ -291,12 +291,12 @@ def coldstartNetwork():
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": train_data},
         y=train_labels,
-        batch_size=1,
+        batch_size=10,
         num_epochs=None,
         shuffle=True)
     mnist_classifier.train(
         input_fn=train_input_fn,
-        steps=1,
+        steps=1000,
         hooks=[logging_hook])
 
     # Evaluate the model and save results
