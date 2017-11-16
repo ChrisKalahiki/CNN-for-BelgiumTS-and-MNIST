@@ -296,7 +296,7 @@ def coldstartNetwork():
         shuffle=True)
     mnist_classifier.train(
         input_fn=train_input_fn,
-        steps=1000,
+        steps=10000,
         hooks=[logging_hook])
 
     # Evaluate the model and save results
@@ -342,7 +342,7 @@ def printData(data):
     window.title("Your Results Are")
     window.configure(background="white")
     txt = Label(window, text=(str(data)))
-    txt.configure(background="green", fg="white", font="bold")
+    txt.configure(background="white", fg="black", font="bold")
     txt.pack(padx=50, pady=50)
 
 def displayData():
@@ -376,10 +376,10 @@ def mainWindow():
     buttonContinue = Button(frame, text="Continue Train Network", command=lambda: warmstartNetwork(), width=buttonWidth)
 
     # button config
-    buttonTrain.configure(background="#33cc33", fg="black", font="Bold")
-    buttonDisplay.configure(background="#33cc33", fg="black", font="Bold")
-    buttonTest.configure(background="#33cc33", fg="black", font="Bold")
-    buttonContinue.configure(background="#33cc33", fg="black", font="Bold")
+    buttonTrain.configure(background="#228b22", fg="black", font="Bold")
+    buttonDisplay.configure(background="#ff1111", fg="black", font="Bold")
+    buttonTest.configure(background="#228b22", fg="black", font="Bold")
+    buttonContinue.configure(background="#00FFFF", fg="black", font="Bold")
 
     #button allign
     buttonTrain.grid(row=0, column=0)
