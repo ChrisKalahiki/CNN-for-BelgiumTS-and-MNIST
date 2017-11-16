@@ -19,6 +19,9 @@ from __future__ import print_function
 
 import numpy as np
 import tensorflow as tf
+import os
+import skimage.data
+import skimage.transform
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
@@ -116,14 +119,42 @@ def cnn_model_fn(features, labels, mode):
     return tf.estimator.EstimatorSpec(
         mode=mode, loss=loss, eval_metric_ops=eval_metric_ops)
 
+def getData(data_dir):
+    # Get all subdirectories of data_dir. Each represents a label.
+    directories = [d for d in os.listdir(data_dir)
+                   if os.path.isdir(os.path.join(data_dir, d))]
+
+    # Loop through the label directories and collect the data in
+    # two lists, labels and images.
+    labels = []
+    images = []
+    for d in directories:
+        label_dir = os.path.join(data_dir, d)
+        file_names = [os.path.join(label_dir, f)
+                      for f in os.listdir(label_dir)
+
+                      if f.endswith(".ppm")]
+        for f in file_names:
+            images.append(skimage.data.imread(f))
+            labels.append(int(d))
+    return np.array(resizeImages(images),dtype=np.float32), np.array(labels,dtype=np.int32)
+
+def resizeImages(images):
+    reimages = [skimage.transform.resize(image, (64, 64))
+                for image in images]
+    return reimages
+
 # This section will change to the new data set
 def main(unused_argv):
     # Load training and eval data
-    mnist = tf.contrib.learn.datasets.load_dataset("mnist")
-    train_data = mnist.train.images  # Returns np.array
-    train_labels = np.asarray(mnist.train.labels, dtype=np.int32)
-    eval_data = mnist.test.images  # Returns np.array
-    eval_labels = np.asarray(mnist.test.labels, dtype=np.int32)
+    #mnist = tf.contrib.learn.datasets.load_dataset("mnist")
+    #train_data = mnist.train.images  # Returns np.array
+    #train_labels = np.asarray(mnist.train.labels, dtype=np.int32)
+    #eval_data = mnist.test.images  # Returns np.array
+    #eval_labels = np.asarray(mnist.test.labels, dtype=np.int32)
+    train_data, train_labels = getData('BelgiumTS/Training')
+    eval_data, eval_labels = getData('BelgiumTS/Testing')
+
 
     # Create the Estimator
     mnist_classifier = tf.estimator.Estimator(

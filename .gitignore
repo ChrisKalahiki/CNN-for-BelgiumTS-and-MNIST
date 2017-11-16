@@ -1,3 +1,11 @@
 
 CNN/BelgiumTS/BelgiumTSC_Testing.zip
 CNN/BelgiumTS/BelgiumTSC_Training.zip
+CNN/SavedNetworks/checkpoint
+CNN/SavedNetworks/checkpoint
+CNN/SavedNetworks/saved_model.ckpt.data-00000-of-00001
+CNN/SavedNetworks/saved_model.ckpt.index
+CNN/SavedNetworks/saved_model.index
+CNN/SavedNetworks/saved_model.meta
+CNN/SavedNetworks/saved_model.data-00000-of-00001
+CNN/SavedNetworks/saved_model.ckpt.meta

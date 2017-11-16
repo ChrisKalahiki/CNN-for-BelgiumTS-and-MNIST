@@ -11,23 +11,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="cnn_RMR.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="cnn_RMR.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/cnn_RMR.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="154" column="22" lean-forward="false" selection-start-line="154" selection-start-column="22" selection-end-line="154" selection-end-column="22" />
-              <folding>
-                <element signature="e#694#732#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="cnn_mnist.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cnn_mnist.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="199" column="45" lean-forward="true" selection-start-line="199" selection-start-column="45" selection-end-line="199" selection-end-column="45" />
+            <state relative-caret-position="25">
+              <caret line="98" column="45" lean-forward="true" selection-start-line="98" selection-start-column="45" selection-end-line="98" selection-end-column="45" />
               <folding>
                 <element signature="e#694#732#0" expanded="true" />
               </folding>
@@ -45,14 +33,26 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="cnn_mnist.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cnn_mnist.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="25">
+              <caret line="135" column="44" lean-forward="true" selection-start-line="135" selection-start-column="44" selection-end-line="135" selection-end-column="44" />
+              <folding>
+                <element signature="e#694#732#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/file_manager.py" />
-        <option value="$PROJECT_DIR$/cnn_RMR.py" />
         <option value="$PROJECT_DIR$/cnn_mnist.py" />
+        <option value="$PROJECT_DIR$/cnn_RMR.py" />
       </list>
     </option>
   </component>
@@ -93,7 +93,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.cnn_mnist">
+  <component name="RunManager" selected="Python.cnn_RMR">
     <configuration name="cnn_RMR" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -134,8 +134,8 @@
     </list>
     <recent_temporary>
       <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="Python.cnn_mnist" />
-        <item index="1" class="java.lang.String" itemvalue="Python.cnn_RMR" />
+        <item index="0" class="java.lang.String" itemvalue="Python.cnn_RMR" />
+        <item index="1" class="java.lang.String" itemvalue="Python.cnn_mnist" />
       </list>
     </recent_temporary>
   </component>
@@ -228,20 +228,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cnn_RMR.py">
+    <entry file="file://$PROJECT_DIR$/cnn_mnist.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="485">
-          <caret line="154" column="22" lean-forward="false" selection-start-line="154" selection-start-column="22" selection-end-line="154" selection-end-column="22" />
+        <state relative-caret-position="25">
+          <caret line="135" column="44" lean-forward="true" selection-start-line="135" selection-start-column="44" selection-end-line="135" selection-end-column="44" />
           <folding>
             <element signature="e#694#732#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cnn_mnist.py">
+    <entry file="file://$PROJECT_DIR$/cnn_RMR.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="199" column="45" lean-forward="true" selection-start-line="199" selection-start-column="45" selection-end-line="199" selection-end-column="45" />
+        <state relative-caret-position="25">
+          <caret line="98" column="45" lean-forward="true" selection-start-line="98" selection-start-column="45" selection-end-line="98" selection-end-column="45" />
           <folding>
             <element signature="e#694#732#0" expanded="true" />
           </folding>
