@@ -11,6 +11,7 @@
 #  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
+#herbert sanford, chris kalahiki, spencer graff
 """Convolutional Neural Network Estimator for MNIST, built with tf.layers."""
 
 from __future__ import absolute_import
@@ -342,7 +343,7 @@ def printData(data):
     window.title("Your Results Are")
     window.configure(background="white")
     txt = Label(window, text=(str(data)))
-    txt.configure(background="white", fg="black", font="bold")
+    txt.configure(background="#00FFFF", fg="black", font="bold")
     txt.pack(padx=50, pady=50)
 
 def displayData():
@@ -376,10 +377,10 @@ def mainWindow():
     buttonContinue = Button(frame, text="Continue Train Network", command=lambda: warmstartNetwork(), width=buttonWidth)
 
     # button config
-    buttonTrain.configure(background="#228b22", fg="black", font="Bold")
-    buttonDisplay.configure(background="#ff1111", fg="black", font="Bold")
+    buttonTrain.configure(background="#ff1111", fg="black", font="Bold")
+    buttonDisplay.configure(background="#00FFFF", fg="black", font="Bold")
     buttonTest.configure(background="#228b22", fg="black", font="Bold")
-    buttonContinue.configure(background="#00FFFF", fg="black", font="Bold")
+    buttonContinue.configure(background="#228b22", fg="black", font="Bold")
 
     #button allign
     buttonTrain.grid(row=0, column=0)
