@@ -20,6 +20,7 @@ from __future__ import print_function
 import numpy as np
 import tensorflow as tf
 import os
+import shutil
 import skimage.data
 import skimage.transform
 
@@ -140,11 +141,10 @@ def getData(data_dir):
     return np.array(resizeImages(images),dtype=np.float32), np.array(labels,dtype=np.int32)
 
 def resizeImages(images):
-    reimages = [skimage.transform.resize(image, (64, 64))
-                for image in images]
+    reimages = [skimage.transform.resize(image, (64, 64), mode='reflect') for image in images]
     return reimages
 
-def train_network(mnist_classifier, logging_hook):
+def train_network(classifier, logging_hook):
     train_data, train_labels = getData('BelgiumTS/Training')
 
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
@@ -153,12 +153,12 @@ def train_network(mnist_classifier, logging_hook):
         batch_size=100,
         num_epochs=None,
         shuffle=True)
-    mnist_classifier.train(
+    classifier.train(
         input_fn=train_input_fn,
         steps=100,  # 20000
         hooks=[logging_hook])
 
-def test_network(mnist_classifier):
+def test_network(classifier):
     eval_data, eval_labels = getData('BelgiumTS/Testing')
 
     eval_input_fn = tf.estimator.inputs.numpy_input_fn(
@@ -166,13 +166,18 @@ def test_network(mnist_classifier):
         y=eval_labels,
         num_epochs=1,
         shuffle=False)
-    eval_results = mnist_classifier.evaluate(input_fn=eval_input_fn)
+    eval_results = classifier.evaluate(input_fn=eval_input_fn)
     print(eval_results)
+
+def load_network():
+    return tf.estimator.Estimator(model_fn=cnn_model_fn, model_dir="/tmp/mnist_convnet_model")
+
+def clear_network():
+    shutil.rmtree("/tmp/mnist_convnet_model")
 
 def main(unused_argv):
     # Create the Estimator
-    mnist_classifier = tf.estimator.Estimator(
-        model_fn=cnn_model_fn, model_dir="/tmp/mnist_convnet_model")
+    classifier = load_network()
 
     # Set up logging for predictions
     # Log the values in the "Softmax" tensor with label "probabilities"
@@ -180,8 +185,8 @@ def main(unused_argv):
     logging_hook = tf.train.LoggingTensorHook(
         tensors=tensors_to_log, every_n_iter=50)
 
-    train_network(mnist_classifier, logging_hook)
-    test_network(mnist_classifier)
+    #train_network(classifier, logging_hook)
+    test_network(classifier)
 
 # This section will change to the new data set
 def oldmain(unused_argv):
