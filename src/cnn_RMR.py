@@ -148,7 +148,7 @@ def resizeImages(images):
     return reimages
 
 def train_network(classifier, logging_hook):
-    train_data, train_labels = getData('BelgiumTS/Training')
+    train_data, train_labels = getData('../Data/BelgiumTS/Training')
 
     train_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": train_data},
@@ -162,7 +162,7 @@ def train_network(classifier, logging_hook):
         hooks=[logging_hook])
 
 def test_network(classifier):
-    eval_data, eval_labels = getData('BelgiumTS/Testing')
+    eval_data, eval_labels = getData('../Data/BelgiumTS/Testing')
 
     eval_input_fn = tf.estimator.inputs.numpy_input_fn(
         x={"x": eval_data},
@@ -179,7 +179,7 @@ def clear_network():
     shutil.rmtree("/tmp/mnist_convnet_model")
 
 def display_test():
-    images, labels = getData('BelgiumTS/Testing')
+    images, labels = getData('../Data/BelgiumTS/Testing')
     # Pick 10 random images
     sample_indexes = random.sample(range(len(images)), 10)
     sample_images = [images[i] for i in sample_indexes]
@@ -230,8 +230,8 @@ def main(unused_argv):
     #train_labels = np.asarray(mnist.train.labels, dtype=np.int32)
     #eval_data = mnist.test.images  # Returns np.array
     #eval_labels = np.asarray(mnist.test.labels, dtype=np.int32)
-    train_data, train_labels = getData('BelgiumTS/Training')
-    eval_data, eval_labels = getData('BelgiumTS/Testing')
+    train_data, train_labels = getData('../Data/BelgiumTS/Training')
+    eval_data, eval_labels = getData('../Data/BelgiumTS/Testing')
 
 
     # Create the Estimator

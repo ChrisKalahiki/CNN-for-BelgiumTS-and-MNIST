@@ -5,7 +5,7 @@ import glob
 
 class FMan(object):
 
-    dataPath = 'Data/'
+    dataPath = '../Data/'
     imageVersion = 1
 
     def __init__(self):
